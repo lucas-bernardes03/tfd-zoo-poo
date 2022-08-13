@@ -14,6 +14,6 @@ public class MainTeste {
         String cpf = JOptionPane.showInputDialog(null, "CPF: ", "TESTE", OK_CANCEL_OPTION);
         String idade = JOptionPane.showInputDialog(null, "Idade: ", "TESTE", OK_CANCEL_OPTION);
         Visitantes v = new Visitantes(Integer.parseInt(op), cpf, Integer.parseInt(idade));
-        JOptionPane.showInputDialog(null, v, "TESTE", OK_CANCEL_OPTION);
+        JOptionPane.showMessageDialog(null, v, "TESTE", OK_CANCEL_OPTION);
     }
 }

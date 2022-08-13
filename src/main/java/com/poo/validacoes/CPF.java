@@ -18,10 +18,10 @@ public class CPF {
 
     public String getCpfFormatado() {
         if (numero.length() == 11) {
-            return numero.substring(0, 4) + "."
-                    + numero.substring(4, 7) + "."
-                    + numero.substring(7, 10) + "-"
-                    + numero.substring(10, 12);
+            return numero.substring(0, 3) + "."
+                    + numero.substring(3, 6) + "."
+                    + numero.substring(6, 9) + "-"
+                    + numero.substring(9, 11);
         } else {
             return numero;
         }
