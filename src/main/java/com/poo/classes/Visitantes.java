@@ -3,19 +3,22 @@ package com.poo.classes;
 import com.poo.exceptions.CPFInvalidoException;
 import com.poo.interfaces.VisitantesConfig;
 import com.poo.validacoes.CPF;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@NoArgsConstructor
 public class Visitantes extends AbstratoZoologico implements VisitantesConfig {
 
-    private int codigoVerificacao;
-    private String cpf;
-    private int idade;
+    @Getter private int codigoVerificacao;
+    @Getter private String cpf;
+    @Getter private int idade;
+    @Getter private double valorIngresso;
 
     private CPF cpfValidado;
-    private double valorIngresso;
 
     public Visitantes(int codigoVerificacao, String cpf, int idade) {
         try {
@@ -52,6 +55,11 @@ public class Visitantes extends AbstratoZoologico implements VisitantesConfig {
 
             String linha = bf.readLine();
             while (linha != null) {
+                if (linha.contains("nome,cpf")) {
+                    linha = bf.readLine();
+                    continue;
+                }
+
                 String[] campos = linha.split(",");
                 cpfsCadastrados.add(campos[1]);
                 linha = bf.readLine();
