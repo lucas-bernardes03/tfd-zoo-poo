@@ -52,23 +52,25 @@ public class Visitantes extends AbstratoZoologico implements VisitantesConfig {
 
             String linha = bf.readLine();
             while (linha != null) {
-                if (linha.contains("nome,cpf")) {
-                    linha = bf.readLine();
-                    continue;
-                }
-
                 String[] campos = linha.split(",");
                 cpfsCadastrados.add(campos[1]);
                 linha = bf.readLine();
             }
 
-            return cpfsCadastrados.contains(cpfValidado.getCpfNumeros().trim());
+            bf.close();
+            return cpfsCadastrados.contains(cpfValidado.getCpfNumeros());
         } catch (Exception e) {
             e.printStackTrace();
             mostraAvisoTela("Erro generico, o Programa sera finalizado!");
         }
 
         return false;
+    }
+
+    @Override
+    public String toString() {
+        return "Visitantes [codigoVerificacao=" + codigoVerificacao + ", cpf=" + cpfValidado.getCpfFormatado()
+                + ", idade=" + idade + ", valorIngresso=" + valorIngresso + "]";
     }
 
 }
