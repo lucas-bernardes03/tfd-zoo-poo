@@ -17,7 +17,6 @@ public class Visitantes extends AbstratoZoologico implements VisitantesConfig {
     @Getter private String cpf;
     @Getter private int idade;
     @Getter private double valorIngresso;
-
     private CPF cpfValidado;
 
     public Visitantes(int codigoVerificacao, String cpf, int idade) {
