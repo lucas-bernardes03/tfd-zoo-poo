@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -72,6 +73,32 @@ public class Visitantes extends AbstratoZoologico implements VisitantesConfig {
         }
 
         return false;
+    }
+
+    @Override
+    public void cadastrarVisitante() {
+        try {
+            //codigo - 20220815000
+            String dia = String.valueOf(codigoVerificacao).substring(6, 7);
+            String mes = String.valueOf(codigoVerificacao).substring(4, 5);
+
+            OutputStream os = new FileOutputStream("src/main/java/com/poo/arquivos/visitantes.csv");
+            PrintWriter writer = new PrintWriter(new OutputStreamWriter(os, StandardCharsets.UTF_8));
+            StringBuilder sb = new StringBuilder();
+
+            sb.append(dia + ",")
+                    .append(mes + ",")
+                    .append(codigoVerificacao + ",")
+                    .append(cpfValidado.getCpfNumeros() + ",")
+                    .append(idade + ",")
+                    .append(valorIngresso + "\n");
+
+            writer.write(sb.toString());
+            writer.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+            mostraAvisoTela("Erro generico, o Programa sera finalizado!");
+        }
     }
 
     @Override

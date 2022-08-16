@@ -1,24 +1,20 @@
 package com.poo.classes;
 
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import com.poo.exceptions.HorarioInvalidoException;
 
+import lombok.*;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-@Getter @Setter
 @NoArgsConstructor
-@EqualsAndHashCode(exclude = {"dieta"})
-public class Animal {
-    private String nome;
-    private String especie;
-    private Double peso;
-    private Integer idade;
-
-    //<Alimento,Horário> - linked hash map ordena por ordem de adicao
-    private Map<String,String> dieta = new LinkedHashMap<>();
+@EqualsAndHashCode
+public class Animal extends AbstratoZoologico {
+    @Getter private String nome;
+    @Getter private String especie;
+    @Getter private Double peso;
+    @Getter private Integer idade;
+    @Getter private double precoTotalDieta = 0;
+    Map<String, Alimento> dieta = new LinkedHashMap<>();
 
     public Animal(String nome, String especie, Double peso, Integer idade) {
         this.nome = nome;
@@ -27,4 +23,24 @@ public class Animal {
         this.idade = idade;
     }
 
+    public void adicionarAlimentacao(int hora, int minuto, Alimento alimento) {
+        try {
+            dieta.put(alimento.formataHorarioDieta(hora, minuto), alimento);
+            precoTotalDieta += alimento.calculaPrecoTotal();
+        } catch (HorarioInvalidoException exception) {
+            mostraAvisoTela("O horario digitado nao e valido!");
+        }
+    }
+
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+
+        sb.append("--- Dieta cadastrada ---\n");
+        sb.append("Horario - Refeicao\n");
+        for (String refeicao : dieta.keySet()) {
+            sb.append(refeicao).append(" - ").append(dieta.get(refeicao)).append("\n");
+        }
+
+        return sb.toString();
+    }
 }

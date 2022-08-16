@@ -3,8 +3,8 @@ package com.poo.exceptions;
 import lombok.NoArgsConstructor;
 
 @NoArgsConstructor
-public class CPFInvalidoException extends Exception {
-    public CPFInvalidoException(String message) {
+public class HorarioInvalidoException extends Exception {
+    public HorarioInvalidoException(String message) {
         super(message);
     }
 }
