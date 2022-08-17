@@ -8,6 +8,8 @@ import java.util.List;
 public class Dia extends AbstratoZoologico {
 
     private List<Visitantes> visitantes = new ArrayList<>();
+    private int dia;
+    private int mes;
     private int totalVisitantes = 0;
     private double rendaDiaria = 0;
 
@@ -20,7 +22,7 @@ public class Dia extends AbstratoZoologico {
         return rendaTotal;
     }
 
-    public void logVisitante(int dia, int mes) {
+    public void logVisitante() {
         try {
             FileReader pathVisitantes =  new FileReader("src/main/java/com/poo/arquivos/visitantes.csv");
             BufferedReader bf = new BufferedReader(pathVisitantes);
