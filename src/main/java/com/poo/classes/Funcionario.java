@@ -2,11 +2,13 @@ package com.poo.classes;
 
 import com.poo.exceptions.CPFInvalidoException;
 import com.poo.validacoes.CPF;
+import lombok.NoArgsConstructor;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
 
-public abstract class Funcionario extends AbstratoZoologico {
+@NoArgsConstructor
+public class Funcionario extends AbstratoZoologico {
 
     private String nome;
     private CPF cpf;

@@ -76,7 +76,7 @@ public class Visitantes extends AbstratoZoologico implements VisitantesConfig {
     }
 
     @Override
-    public void cadastrarVisitante() {
+    public boolean cadastrarVisitante() {
         try {
             //codigo - 20220815000
             String dia = String.valueOf(codigoVerificacao).substring(6, 7);
@@ -95,9 +95,35 @@ public class Visitantes extends AbstratoZoologico implements VisitantesConfig {
 
             writer.write(sb.toString());
             writer.close();
+            return true;
         } catch (Exception e) {
-            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public double getReceitaVisitantes() {
+        try {
+            double receitaTotal = 0;
+            FileReader pathVisitantes =  new FileReader("src/main/java/com/poo/arquivos/visitantes.csv");
+            BufferedReader bf = new BufferedReader(pathVisitantes);
+
+            String linha = bf.readLine();
+            while (linha != null) {
+                if (linha.contains("dia,mes")) {
+                    linha = bf.readLine();
+                    continue;
+                }
+
+                String[] campos = linha.split(",");
+                receitaTotal += Double.parseDouble(campos[5]);
+                linha = bf.readLine();
+            }
+
+            bf.close();
+            return receitaTotal;
+        } catch (Exception e) {
             mostraAvisoTela("Erro generico, o Programa sera finalizado!");
+            return 0;
         }
     }
 

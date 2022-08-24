@@ -10,4 +10,8 @@ public class AbstratoZoologico {
         JOptionPane.showMessageDialog(null, aviso, titleMensagens, JOptionPane.WARNING_MESSAGE);
         System.exit(0);
     }
+
+    protected void mostraMsgSucessoTela(String msg) {
+        JOptionPane.showMessageDialog(null, msg, titleMensagens, JOptionPane.INFORMATION_MESSAGE);
+    }
 }

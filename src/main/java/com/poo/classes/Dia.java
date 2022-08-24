@@ -13,6 +13,11 @@ public class Dia extends AbstratoZoologico {
     private int totalVisitantes = 0;
     private double rendaDiaria = 0;
 
+    public Dia(int dia, int mes) {
+        this.dia = dia;
+        this.mes = mes;
+    }
+
     public double renda() {
         double rendaTotal = 0;
         for (Visitantes visitante : visitantes) {

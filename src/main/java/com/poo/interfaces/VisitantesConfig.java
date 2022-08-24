@@ -5,5 +5,5 @@ import java.io.FileNotFoundException;
 public interface VisitantesConfig {
     double valorIngresso();
     boolean validarSocio();
-    void cadastrarVisitante() throws FileNotFoundException;
+    boolean cadastrarVisitante() throws FileNotFoundException;
 }
