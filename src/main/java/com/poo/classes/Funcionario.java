@@ -1,6 +1,7 @@
 package com.poo.classes;
 
 import com.poo.exceptions.CPFInvalidoException;
+import com.poo.interfaces.FuncionarioConfig;
 import com.poo.validacoes.CPF;
 import lombok.NoArgsConstructor;
 
@@ -8,7 +9,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 
 @NoArgsConstructor
-public class Funcionario extends AbstratoZoologico {
+public class Funcionario extends AbstratoZoologico implements FuncionarioConfig {
 
     private String nome;
     private CPF cpf;
@@ -26,7 +27,8 @@ public class Funcionario extends AbstratoZoologico {
         }
     }
 
-    public double folhaPagamento() {
+    @Override
+    public double folhaPagamentoTotal() {
         try {
             FileReader pathFuncionarios =  new FileReader("src/main/java/com/poo/arquivos/funcionarios.csv");
             BufferedReader bf = new BufferedReader(pathFuncionarios);
@@ -48,12 +50,13 @@ public class Funcionario extends AbstratoZoologico {
             return folhaPagamento;
         } catch (Exception e) {
             e.printStackTrace();
-            mostraAvisoTela("Erro generico, o Programa sera finalizado!");
+            mensagemParaExceptionTela("Erro generico, o programa sera finalizado!");
             return 0;
         }
     }
 
-    public double folhaPagamento(String cargo) {
+    @Override
+    public double folhaPagamentoPorCargo(String cargo) {
         try {
             FileReader pathFuncionarios =  new FileReader("src/main/java/com/poo/arquivos/funcionarios.csv");
             BufferedReader bf = new BufferedReader(pathFuncionarios);
@@ -75,7 +78,7 @@ public class Funcionario extends AbstratoZoologico {
             return folhaPagamento;
         } catch (Exception e) {
             e.printStackTrace();
-            mostraAvisoTela("Erro generico, o Programa sera finalizado!");
+            mensagemParaExceptionTela("Erro generico, o programa sera finalizado!");
             return 0;
         }
     }

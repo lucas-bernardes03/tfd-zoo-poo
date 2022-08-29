@@ -69,7 +69,7 @@ public class Visitantes extends AbstratoZoologico implements VisitantesConfig {
             return cpfsCadastrados.contains(cpfValidado.getCpfNumeros());
         } catch (Exception e) {
             e.printStackTrace();
-            mostraAvisoTela("Erro generico, o Programa sera finalizado!");
+            mensagemParaExceptionTela("Erro generico, o programa sera finalizado!");
         }
 
         return false;
@@ -122,7 +122,7 @@ public class Visitantes extends AbstratoZoologico implements VisitantesConfig {
             bf.close();
             return receitaTotal;
         } catch (Exception e) {
-            mostraAvisoTela("Erro generico, o Programa sera finalizado!");
+            mensagemParaExceptionTela("Erro generico, o programa sera finalizado!");
             return 0;
         }
     }

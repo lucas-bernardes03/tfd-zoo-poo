@@ -32,7 +32,7 @@ public class Administracao extends AbstratoZoologico {
     public void calculaFolhaPagamento() {
         if (flagIniciouSistema && !calculouFolhaPagamento) {
             Funcionario f = new Funcionario();
-            folhaPagamentoFuncionarios += f.folhaPagamento();
+            folhaPagamentoFuncionarios += f.folhaPagamentoTotal();
             calculouFolhaPagamento = true;
         }
     }

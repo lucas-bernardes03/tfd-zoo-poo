@@ -1,11 +1,13 @@
 package com.poo.classes;
 
+import com.poo.interfaces.DiaConfig;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Dia extends AbstratoZoologico {
+public class Dia extends AbstratoZoologico implements DiaConfig {
 
     private List<Visitantes> visitantes = new ArrayList<>();
     private int dia;
@@ -18,7 +20,8 @@ public class Dia extends AbstratoZoologico {
         this.mes = mes;
     }
 
-    public double renda() {
+    @Override
+    public double calculaRenda() {
         double rendaTotal = 0;
         for (Visitantes visitante : visitantes) {
             rendaTotal += visitante.valorIngresso();
@@ -27,7 +30,8 @@ public class Dia extends AbstratoZoologico {
         return rendaTotal;
     }
 
-    public void logVisitante() {
+    @Override
+    public void mostrarVisitantes() {
         try {
             FileReader pathVisitantes =  new FileReader("src/main/java/com/poo/arquivos/visitantes.csv");
             BufferedReader bf = new BufferedReader(pathVisitantes);
@@ -52,7 +56,7 @@ public class Dia extends AbstratoZoologico {
             bf.close();
         } catch (Exception e) {
             e.printStackTrace();
-            mostraAvisoTela("Erro generico, o Programa sera finalizado!");
+            mensagemParaExceptionTela("Erro generico, o programa sera finalizado!");
         }
     }
 

@@ -7,7 +7,7 @@ import java.util.HashMap;
 
 public class AbstratoZoologico {
 
-    private String titleMensagens = "Zoologico TAL";
+    private String titleMensagens = "Zoologico POO";
 
     public void mostraAvisoTela(String aviso) {
         JOptionPane.showMessageDialog(null, aviso, titleMensagens, JOptionPane.WARNING_MESSAGE);
@@ -15,6 +15,37 @@ public class AbstratoZoologico {
 
     public void mostraMsgSucessoTela(String msg) {
         JOptionPane.showMessageDialog(null, msg, titleMensagens, JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    public void mensagemParaExceptionTela(String msgErro) {
+        JOptionPane.showMessageDialog(null, msgErro, titleMensagens, JOptionPane.ERROR_MESSAGE);
+        System.exit(0);
+    }
+
+    public String leArquivo(String linhaInicial, String pathFinal) {
+        String linhasTotais = "";
+
+        try {
+            String path = "src/main/java/com/poo/arquivos/";
+            FileReader pathProcurado = new FileReader(path + pathFinal);
+            BufferedReader bf = new BufferedReader(pathProcurado);
+            StringBuilder sb = new StringBuilder();
+
+            String linha = bf.readLine();
+            while (linha != null) {
+                if (linha.contains(linhaInicial)) {
+                    linha = bf.readLine();
+                    continue;
+                }
+
+                linhasTotais += linha + "\n";
+                linha = bf.readLine();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return linhasTotais;
     }
 
     public HashMap<String, String> loginsValidos() {
