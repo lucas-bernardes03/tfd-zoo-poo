@@ -1,6 +1,9 @@
-package com.poo.classes;
+package com.poo.classes.abstratos;
 
-public class Administracao extends AbstratoZoologico {
+import com.poo.classes.Funcionario;
+import com.poo.classes.Visitantes;
+
+public class Administracao extends AbstratoFuncionamento {
 
     private boolean flagIniciouSistema = false;
     private boolean calculouReceitaVisitantes = false;
@@ -22,7 +25,7 @@ public class Administracao extends AbstratoZoologico {
         }
 
         if (v.cadastrarVisitante()) {
-            mostraMsgSucessoTela("Sucesso! Visitante Cadastrado");
+            mostraMsgInformacaoTela("Sucesso! Visitante Cadastrado");
             receitaVisitantes += v.getValorIngresso();
         } else {
             mostraAvisoTela("Erro inesperado! O programa sera finalizado");

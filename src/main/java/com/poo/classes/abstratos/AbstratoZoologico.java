@@ -1,9 +1,11 @@
-package com.poo.classes;
+package com.poo.classes.abstratos;
 
 import javax.swing.*;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.util.HashMap;
+
+import static javax.swing.JOptionPane.*;
 
 public class AbstratoZoologico {
 
@@ -13,13 +15,19 @@ public class AbstratoZoologico {
         JOptionPane.showMessageDialog(null, aviso, titleMensagens, JOptionPane.WARNING_MESSAGE);
     }
 
-    public void mostraMsgSucessoTela(String msg) {
-        JOptionPane.showMessageDialog(null, msg, titleMensagens, JOptionPane.INFORMATION_MESSAGE);
+    public void mostraMsgInformacaoTela(String msg) {
+        JOptionPane.showMessageDialog(null, msg, titleMensagens, INFORMATION_MESSAGE);
     }
 
     public void mensagemParaExceptionTela(String msgErro) {
         JOptionPane.showMessageDialog(null, msgErro, titleMensagens, JOptionPane.ERROR_MESSAGE);
         System.exit(0);
+    }
+
+    public void mostraMsgOkCancelTela(String msg) {
+        int opcao = JOptionPane.showConfirmDialog(null, msg,
+                "Zoologico POO \uD83E\uDD81", OK_CANCEL_OPTION, QUESTION_MESSAGE);
+        if (opcao == CANCEL_OPTION) verificaSeFinaliza(null);
     }
 
     public String leArquivo(String linhaInicial, String pathFinal) {

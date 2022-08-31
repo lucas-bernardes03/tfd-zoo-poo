@@ -1,5 +1,6 @@
 package com.poo.classes;
 
+import com.poo.classes.abstratos.AbstratoZoologico;
 import com.poo.interfaces.DiaConfig;
 
 import java.io.BufferedReader;
