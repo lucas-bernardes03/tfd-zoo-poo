@@ -29,7 +29,7 @@ public class Animal extends AbstratoZoologico {
             dieta.put(alimento.formataHorarioDieta(hora, minuto), alimento);
             precoTotalDieta += alimento.calculaPrecoTotal();
         } catch (HorarioInvalidoException exception) {
-            mostraAvisoTela("O horario digitado nao e valido!");
+            mostraMsgAvisoTela("O horario digitado nao e valido!");
         }
     }
 

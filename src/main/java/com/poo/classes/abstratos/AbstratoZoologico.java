@@ -7,20 +7,28 @@ import java.util.HashMap;
 
 import static javax.swing.JOptionPane.*;
 
-public class AbstratoZoologico {
+public abstract class AbstratoZoologico {
 
     private String titleMensagens = "Zoologico POO";
 
-    public void mostraAvisoTela(String aviso) {
+    public void mostraMsgTela(String msg) {
+        JOptionPane.showMessageDialog(null, msg, titleMensagens, PLAIN_MESSAGE);
+    }
+
+    public void mostraMsgAvisoTela(String aviso) {
         JOptionPane.showMessageDialog(null, aviso, titleMensagens, JOptionPane.WARNING_MESSAGE);
     }
 
-    public void mostraMsgInformacaoTela(String msg) {
-        JOptionPane.showMessageDialog(null, msg, titleMensagens, INFORMATION_MESSAGE);
+    public void mostraMsgInformacaoTela(String info) {
+        JOptionPane.showMessageDialog(null, info, titleMensagens, INFORMATION_MESSAGE);
     }
 
-    public void mensagemParaExceptionTela(String msgErro) {
-        JOptionPane.showMessageDialog(null, msgErro, titleMensagens, JOptionPane.ERROR_MESSAGE);
+    public void mostraMsgQuestionTela(String pergunta) {
+        JOptionPane.showMessageDialog(null, pergunta, titleMensagens, QUESTION_MESSAGE);
+    }
+
+    public void mostraMsgErroTela(String erro) {
+        JOptionPane.showMessageDialog(null, erro, titleMensagens, JOptionPane.ERROR_MESSAGE);
         System.exit(0);
     }
 
@@ -84,7 +92,6 @@ public class AbstratoZoologico {
         if (obj == null) {
             JOptionPane.showMessageDialog(null, "Obrigado por utilizar o programa! Até mais \uD83D\uDE03");
             System.exit(0);
-            return;
         }
     }
 }

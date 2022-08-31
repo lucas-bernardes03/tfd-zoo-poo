@@ -1,6 +1,7 @@
 package com.poo.classes.abstratos;
 
 import com.poo.enums.OpcaoInicialEnum;
+import com.poo.interfaces.FuncionamentoConfig;
 import lombok.NoArgsConstructor;
 import javax.swing.*;
 
@@ -11,20 +12,12 @@ import java.util.Map;
 import static javax.swing.JOptionPane.*;
 
 @NoArgsConstructor
-public class AbstratoFuncionamento extends AbstratoZoologico {
+public abstract class AbstratoFuncionamento extends AbstratoZoologico implements FuncionamentoConfig {
 
     private OpcaoInicialEnum opcaoInicialEnum;
 
-    public void executaPrograma() {
-        iniciaPrograma();
-        realizaLogin();
-        mostraMenuInicial();
-//        trataOpcaoMenuInicial();
-//        ...
-//        finalizaPrograma();
-    }
-
-    private void iniciaPrograma() {
+    @Override
+    public void iniciaPrograma() {
         int opcaoInicial = JOptionPane.showConfirmDialog(null, "Iniciar Gerenciador do Zoologico?",
                 "Zoologico POO \uD83E\uDD81", OK_CANCEL_OPTION, QUESTION_MESSAGE);
 
@@ -34,7 +27,8 @@ public class AbstratoFuncionamento extends AbstratoZoologico {
         }
     }
 
-    private void realizaLogin() {
+    @Override
+    public void realizaLogin() {
         boolean b = checaCredenciais();
         while (!b) {
             mostraMsgOkCancelTela("USUARIO OU SENHA INVALIDOS. Tente novamente!");
@@ -72,7 +66,8 @@ public class AbstratoFuncionamento extends AbstratoZoologico {
         return checaSucessoLogin;
     }
 
-    private void mostraMenuInicial() {
+    @Override
+    public void mostraMenuInicial() {
         int opcao;
         do {
             String lerEntrada = JOptionPane.showInputDialog(null, montaMenu(),"M E N U", QUESTION_MESSAGE);
@@ -100,21 +95,41 @@ public class AbstratoFuncionamento extends AbstratoZoologico {
 
     private String montaMenu() {
         StringBuilder sb = new StringBuilder();
-
-        sb.append("+--------------------------------+").append('\n');
-        sb.append("|                                          |").append('\n');
         sb.append("|         1 - Visitantes           |").append('\n');
         sb.append("|         2 - Animais              |").append('\n');
         sb.append("|         3 - Funcionarios      |").append('\n');
-        sb.append("|         4 - Sair                     |").append('\n');
-        sb.append("|                                          |").append('\n');
-        sb.append("+--------------------------------+").append("\n\n");
+        sb.append("|         4 - Sair                     |").append("\n\n");
         sb.append("Escolha uma opçao: ");
 
         return sb.toString();
     }
 
-    private void trataOpcaoMenuInicial() {
+    @Override
+    public void trataOpcaoMenuInicial() {
+        if (opcaoInicialEnum == OpcaoInicialEnum.VISITANTE) {
+            mostraMsgInformacaoTela("Iniciando funçoes para seçao de Visitantes!");
+//            cadastroNovoVisitante()
+//            mostrarVisitantesCadastrados()
+//            exibirReceitaVisitantes()
+        }
+
+        if (opcaoInicialEnum == OpcaoInicialEnum.ANIMAL) {
+            mostraMsgInformacaoTela("Iniciando funçoes para seçao de Animais!");
+//            cadastroNovoAnimal() se cadastrou pode escolher add alimentaçao ou nao
+//            mostrarAnimaisCadastrados()
+//            exibirGastos()
+        }
+
+        if (opcaoInicialEnum == OpcaoInicialEnum.FUNCIONARIO) {
+            mostraMsgInformacaoTela("Iniciando funçoes para seçao de Funcionarios!");
+//            cadastroNovoFuncionario()
+//            mostrarFuncionariosCadastrados()
+//            exibirFolhaPagamento()
+        }
+    }
+
+    @Override
+    public void finalizaPrograma() {
 
     }
 }

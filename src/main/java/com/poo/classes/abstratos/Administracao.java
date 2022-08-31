@@ -2,7 +2,9 @@ package com.poo.classes.abstratos;
 
 import com.poo.classes.Funcionario;
 import com.poo.classes.Visitantes;
+import lombok.NoArgsConstructor;
 
+@NoArgsConstructor
 public class Administracao extends AbstratoFuncionamento {
 
     private boolean flagIniciouSistema = false;
@@ -12,10 +14,15 @@ public class Administracao extends AbstratoFuncionamento {
     private static double receitaVisitantes = 0;
     private static double folhaPagamentoFuncionarios = 0;
 
-    public Administracao() {
-        flagIniciouSistema = true;
+    public void executaPrograma() {
+        iniciaPrograma();
+        realizaLogin();
+        mostraMenuInicial();
+        trataOpcaoMenuInicial();
+        finalizaPrograma();
     }
 
+    // ACHO QUE ISSO AQUI DEVE ESTAR DENTRO DE CADA CLASSE
     public void realizaCadastroVisitante(int codigoVerificacao, String cpf, int idade) {
         Visitantes v = new Visitantes(codigoVerificacao, cpf, idade);
 
@@ -28,7 +35,7 @@ public class Administracao extends AbstratoFuncionamento {
             mostraMsgInformacaoTela("Sucesso! Visitante Cadastrado");
             receitaVisitantes += v.getValorIngresso();
         } else {
-            mostraAvisoTela("Erro inesperado! O programa sera finalizado");
+            mostraMsgErroTela("Erro inesperado! O programa sera finalizado");
         }
     }
 

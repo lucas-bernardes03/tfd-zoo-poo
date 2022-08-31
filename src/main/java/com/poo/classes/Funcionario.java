@@ -24,7 +24,7 @@ public class Funcionario extends AbstratoZoologico implements FuncionarioConfig 
             this.cargo = cargo;
             this.salario = salario;
         } catch (CPFInvalidoException e) {
-            mostraAvisoTela("O CPF informado nao e valido!");
+            mostraMsgAvisoTela("O CPF informado nao e valido!");
         }
     }
 
@@ -51,7 +51,7 @@ public class Funcionario extends AbstratoZoologico implements FuncionarioConfig 
             return folhaPagamento;
         } catch (Exception e) {
             e.printStackTrace();
-            mensagemParaExceptionTela("Erro generico, o programa sera finalizado!");
+            mostraMsgErroTela("Erro generico, o programa sera finalizado!");
             return 0;
         }
     }
@@ -79,7 +79,7 @@ public class Funcionario extends AbstratoZoologico implements FuncionarioConfig 
             return folhaPagamento;
         } catch (Exception e) {
             e.printStackTrace();
-            mensagemParaExceptionTela("Erro generico, o programa sera finalizado!");
+            mostraMsgErroTela("Erro generico, o programa sera finalizado!");
             return 0;
         }
     }

@@ -57,7 +57,7 @@ public class Dia extends AbstratoZoologico implements DiaConfig {
             bf.close();
         } catch (Exception e) {
             e.printStackTrace();
-            mensagemParaExceptionTela("Erro generico, o programa sera finalizado!");
+            mostraMsgErroTela("Erro generico, o programa sera finalizado!");
         }
     }
 
