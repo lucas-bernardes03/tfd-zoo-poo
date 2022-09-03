@@ -13,7 +13,7 @@ public class MainTeste {
         String op = JOptionPane.showInputDialog(null, "Codigo: ", "TESTE", OK_CANCEL_OPTION);
         String cpf = JOptionPane.showInputDialog(null, "CPF: ", "TESTE", OK_CANCEL_OPTION);
         String idade = JOptionPane.showInputDialog(null, "Idade: ", "TESTE", OK_CANCEL_OPTION);
-        Visitantes v = new Visitantes(Integer.parseInt(op), cpf, Integer.parseInt(idade));
-        JOptionPane.showMessageDialog(null, v, "TESTE", OK_CANCEL_OPTION);
+//        Visitantes v = new Visitantes(Integer.parseInt(op), cpf, Integer.parseInt(idade));
+//        JOptionPane.showMessageDialog(null, v, "TESTE", OK_CANCEL_OPTION);
     }
 }

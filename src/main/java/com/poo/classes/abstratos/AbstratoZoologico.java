@@ -38,8 +38,16 @@ public abstract class AbstratoZoologico {
         if (opcao == CANCEL_OPTION) verificaSeFinaliza(null);
     }
 
+    /**
+     * Metodo para leitura de qualquer arquivo no diretorio arquivos
+     *
+     * @param linhaInicial Conteudo da primeira linha do CSV, que nao deve ser lida.
+     * @param pathFinal Nome do arquivo em CSV.
+     * @return Retorna todas as linhas concatenadas em String
+     */
     public String leArquivo(String linhaInicial, String pathFinal) {
         String linhasTotais = "";
+        int numeroLinha = 1;
 
         try {
             String path = "src/main/java/com/poo/arquivos/";
@@ -54,7 +62,8 @@ public abstract class AbstratoZoologico {
                     continue;
                 }
 
-                linhasTotais += linha + "\n";
+                linhasTotais += "| " + numeroLinha + "," + linha + " |\n";
+                numeroLinha++;
                 linha = bf.readLine();
             }
         } catch (Exception e) {

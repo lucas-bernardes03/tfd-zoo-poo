@@ -15,13 +15,20 @@ import java.util.List;
 @NoArgsConstructor
 public class Visitantes extends AbstratoZoologico implements VisitantesConfig {
 
-    @Getter private int codigoVerificacao;
+    @Getter private Long codigoVerificacao;
     @Getter private String cpf;
     @Getter private int idade;
     @Getter private double valorIngresso;
     private CPF cpfValidado;
+    private static double receitaVisitantes = 0;
 
-    public Visitantes(int codigoVerificacao, String cpf, int idade) {
+    /**
+     * Construtor obrigatorio para qualquer cadastro de visitantes, para que as informaçoes iniciais sejam coletadas.
+     * @param codigoVerificacao Codigo que identifica o visitante, dia, mes e ano.
+     * @param cpf CPF do visitante.
+     * @param idade Idade em anos do visitante.
+     */
+    public Visitantes(Long codigoVerificacao, String cpf, int idade) {
         try {
             this.codigoVerificacao = codigoVerificacao;
             this.cpf = cpf;
@@ -77,14 +84,23 @@ public class Visitantes extends AbstratoZoologico implements VisitantesConfig {
     }
 
     @Override
-    public boolean cadastrarVisitante() {
+    public void realizaCadastroVisitante() {
+        if (cadastrarVisitante()) {
+            mostraMsgInformacaoTela("Sucesso! Visitante Cadastrado");
+        } else {
+            mostraMsgErroTela("Erro inesperado! O programa sera finalizado");
+        }
+    }
+
+    private boolean cadastrarVisitante() {
         try {
             //codigo - 20220815000
-            String dia = String.valueOf(codigoVerificacao).substring(6, 7);
-            String mes = String.valueOf(codigoVerificacao).substring(4, 5);
+            String dia = String.valueOf(codigoVerificacao).substring(6, 8);
+            String mes = String.valueOf(codigoVerificacao).substring(4, 6);
 
             OutputStream os = new FileOutputStream("src/main/java/com/poo/arquivos/visitantes.csv");
             PrintWriter writer = new PrintWriter(new OutputStreamWriter(os, StandardCharsets.UTF_8));
+            writer.println();
             StringBuilder sb = new StringBuilder();
 
             sb.append(dia + ",")
@@ -102,6 +118,7 @@ public class Visitantes extends AbstratoZoologico implements VisitantesConfig {
         }
     }
 
+    @Override
     public double getReceitaVisitantes() {
         try {
             double receitaTotal = 0;
@@ -127,11 +144,4 @@ public class Visitantes extends AbstratoZoologico implements VisitantesConfig {
             return 0;
         }
     }
-
-    @Override
-    public String toString() {
-        return "Visitantes [codigoVerificacao=" + codigoVerificacao + ", cpf=" + cpfValidado.getCpfFormatado()
-                + ", idade=" + idade + ", valorIngresso=" + valorIngresso + "]";
-    }
-
 }
