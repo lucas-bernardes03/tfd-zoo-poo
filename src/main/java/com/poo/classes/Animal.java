@@ -13,7 +13,9 @@ import java.io.FileReader;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 @NoArgsConstructor
@@ -25,6 +27,7 @@ public class Animal extends AbstratoZoologico {
     @Getter private double precoTotalDieta = 0;
 
     Map<String, Alimento> dieta = new LinkedHashMap<>();
+    List<String> animais = new ArrayList<>();
 
     public Animal(String nome, String especie, Double peso, Integer idade) {
         this.nome = nome;
@@ -123,6 +126,33 @@ public class Animal extends AbstratoZoologico {
         }
     }
 
+    public void deletarAnimal(String nome){
+        try {
+            FileReader pathAnimais =  new FileReader("src/main/java/com/poo/arquivos/animais.csv");
+            BufferedReader bf = new BufferedReader(pathAnimais);
+
+            String linha = bf.readLine();
+            while (linha != null) {
+                if(!linha.contains(nome)) animais.add(linha);
+                linha = bf.readLine();
+            }
+
+            File myFile = new File("src/main/java/com/poo/arquivos/animais.csv");
+            PrintWriter writer;
+
+            try {
+                writer = new PrintWriter(new OutputStreamWriter(new FileOutputStream(myFile, false), "UTF-8"));
+                for(String s : animais) writer.println(s);
+                writer.close();
+            } catch (Exception e){
+                e.printStackTrace();
+            }
+
+            bf.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
     public String toString() {
         StringBuilder sb = new StringBuilder();

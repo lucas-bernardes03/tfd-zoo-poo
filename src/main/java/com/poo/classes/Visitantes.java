@@ -73,7 +73,8 @@ public class Visitantes extends AbstratoZoologico implements VisitantesConfig {
             }
 
             bf.close();
-            return cpfsCadastrados.contains(cpfValidado.getCpfNumeros());
+            boolean b = cpfsCadastrados.contains(cpfValidado.getCpfNumeros());
+            return b;
         } catch (Exception e) {
             e.printStackTrace();
             mostraMsgErroTela("Erro generico! O programa sera finalizado");
@@ -96,7 +97,7 @@ public class Visitantes extends AbstratoZoologico implements VisitantesConfig {
      *
      * @return True: se conseguiu cadastrar com sucesso | False: se houve excessao
      */
-    private boolean cadastrarVisitante() {
+    public boolean cadastrarVisitante() {
         try {
             String dia = String.valueOf(codigoVerificacao).substring(6, 8);
             String mes = String.valueOf(codigoVerificacao).substring(4, 6);
