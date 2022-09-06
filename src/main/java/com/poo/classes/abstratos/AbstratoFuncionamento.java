@@ -177,16 +177,24 @@ public abstract class AbstratoFuncionamento extends AbstratoZoologico implements
         Visitantes v = new Visitantes(Long.parseLong(codigo.getText()), cpf.getText(), Integer.parseInt(idade.getText()));
         v.realizaCadastroVisitante();
         int opcao = JOptionPane.showConfirmDialog(null, "Voltar ao menu principal?","Zoologico POO \uD83E\uDD81", OK_CANCEL_OPTION, INFORMATION_MESSAGE);
-        if (opcao == OK_OPTION) mostraMenuInicial();
-        else verificaSeFinaliza(null);
+        if (opcao == OK_OPTION) {
+            mostraMenuInicial();
+            trataOpcaoMenuInicial();
+        } else {
+            verificaSeFinaliza(null);
+        }
     }
 
     private void mostrarVisitantesCadastrados() {
         String visitantes = leArquivo("dia,mes,codigo,cpf,idade,valor", "visitantes.csv");
         String cabecalho = "| #, Dia, Mes, Codigo, CPF, Idade, Valor |\n";
         int opcao = JOptionPane.showConfirmDialog(null, cabecalho+visitantes,"Zoologico POO \uD83E\uDD81", OK_CANCEL_OPTION, INFORMATION_MESSAGE);
-        if (opcao == OK_OPTION) mostraMenuInicial();
-        else verificaSeFinaliza(null);
+        if (opcao == OK_OPTION) {
+            mostraMenuInicial();
+            trataOpcaoMenuInicial();
+        } else {
+            verificaSeFinaliza(null);
+        }
     }
 
     private void exibirReceitaVisitantes() {
@@ -195,8 +203,12 @@ public abstract class AbstratoFuncionamento extends AbstratoZoologico implements
         DecimalFormat df = new DecimalFormat("#.00");
         String msg = "A receita gerada pelos VISITANTES foi de: " + df.format(receita);
         int opcao = JOptionPane.showConfirmDialog(null, msg,"Zoologico POO \uD83E\uDD81", OK_CANCEL_OPTION, INFORMATION_MESSAGE);
-        if (opcao == OK_OPTION) mostraMenuInicial();
-        else verificaSeFinaliza(null);
+        if (opcao == OK_OPTION) {
+            mostraMenuInicial();
+            trataOpcaoMenuInicial();
+        } else {
+            verificaSeFinaliza(null);
+        }
     }
 
     @Override

@@ -94,13 +94,11 @@ public class Visitantes extends AbstratoZoologico implements VisitantesConfig {
 
     private boolean cadastrarVisitante() {
         try {
-            //codigo - 20220815000
             String dia = String.valueOf(codigoVerificacao).substring(6, 8);
             String mes = String.valueOf(codigoVerificacao).substring(4, 6);
 
-            OutputStream os = new FileOutputStream("src/main/java/com/poo/arquivos/visitantes.csv");
-            PrintWriter writer = new PrintWriter(new OutputStreamWriter(os, StandardCharsets.UTF_8));
-            writer.println();
+            File myFile = new File("src/main/java/com/poo/arquivos/visitantes.csv");
+            PrintWriter writer = new PrintWriter(new OutputStreamWriter(new FileOutputStream(myFile, true), "UTF-8"));
             StringBuilder sb = new StringBuilder();
 
             sb.append(dia + ",")
@@ -108,9 +106,9 @@ public class Visitantes extends AbstratoZoologico implements VisitantesConfig {
                     .append(codigoVerificacao + ",")
                     .append(cpfValidado.getCpfNumeros() + ",")
                     .append(idade + ",")
-                    .append(valorIngresso + "\n");
+                    .append(valorIngresso);
 
-            writer.write(sb.toString());
+            writer.println(sb.toString());
             writer.close();
             return true;
         } catch (Exception e) {
