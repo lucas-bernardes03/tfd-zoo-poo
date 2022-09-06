@@ -87,7 +87,8 @@ public class Visitantes extends AbstratoZoologico implements VisitantesConfig {
         if (cadastrarVisitante()) {
             mostraMsgInformacaoTela("Sucesso! Visitante Cadastrado");
         } else {
-            mostraMsgErroTela("Erro inesperado! O programa sera finalizado");
+            mostraMsgErroTela("Falha durante o cadastro, tente novamente");
+
         }
     }
 

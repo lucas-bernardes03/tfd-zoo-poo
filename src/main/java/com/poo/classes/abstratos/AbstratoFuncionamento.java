@@ -98,10 +98,10 @@ public abstract class AbstratoFuncionamento extends AbstratoZoologico implements
 
     private String montaMenu() {
         StringBuilder sb = new StringBuilder();
-        sb.append("|         1 - Visitantes           |").append('\n');
-        sb.append("|         2 - Animais              |").append('\n');
-        sb.append("|         3 - Funcionarios      |").append('\n');
-        sb.append("|         4 - Sair                     |").append("\n\n");
+        sb.append("|         1 - Visitantes           ").append('\n');
+        sb.append("|         2 - Animais              ").append('\n');
+        sb.append("|         3 - Funcionarios         ").append('\n');
+        sb.append("|         4 - Sair                 ").append("\n\n");
         sb.append("Escolha uma opçao: ");
 
         return sb.toString();
@@ -113,10 +113,10 @@ public abstract class AbstratoFuncionamento extends AbstratoZoologico implements
             mostraMsgInformacaoTela("Iniciando funçoes para seçao de Visitantes!");
 
             StringBuilder sb = new StringBuilder();
-            sb.append("|         1 - Cadastrar Visitante           |").append('\n');
-            sb.append("|         2 - Mostrar Visitantes Cadastrados       |").append('\n');
-            sb.append("|         3 - Exibir receita total      |").append('\n');
-            sb.append("|         4 - Sair                     |").append("\n\n");
+            sb.append("|         1 - Cadastrar Visitante                  ").append('\n');
+            sb.append("|         2 - Mostrar Visitantes Cadastrados       ").append('\n');
+            sb.append("|         3 - Exibir receita total                 ").append('\n');
+            sb.append("|         4 - Sair                                 ").append("\n\n");
             sb.append("Escolha uma opçao: ");
 
             String lerEntrada = JOptionPane.showInputDialog(null, sb.toString(),"M E N U - Visitantes", QUESTION_MESSAGE);
@@ -176,11 +176,14 @@ public abstract class AbstratoFuncionamento extends AbstratoZoologico implements
 
         Visitantes v = new Visitantes(Long.parseLong(codigo.getText()), cpf.getText(), Integer.parseInt(idade.getText()));
         v.realizaCadastroVisitante();
+        
         int opcao = JOptionPane.showConfirmDialog(null, "Voltar ao menu principal?","Zoologico POO \uD83E\uDD81", OK_CANCEL_OPTION, INFORMATION_MESSAGE);
+        
         if (opcao == OK_OPTION) {
             mostraMenuInicial();
             trataOpcaoMenuInicial();
-        } else {
+        } 
+        else {
             verificaSeFinaliza(null);
         }
     }
