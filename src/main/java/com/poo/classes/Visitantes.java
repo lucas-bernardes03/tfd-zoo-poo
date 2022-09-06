@@ -8,7 +8,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.io.*;
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,10 +19,10 @@ public class Visitantes extends AbstratoZoologico implements VisitantesConfig {
     @Getter private int idade;
     @Getter private double valorIngresso;
     private CPF cpfValidado;
-    private static double receitaVisitantes = 0;
 
     /**
      * Construtor obrigatorio para qualquer cadastro de visitantes, para que as informaçoes iniciais sejam coletadas.
+     *
      * @param codigoVerificacao Codigo que identifica o visitante, dia, mes e ano.
      * @param cpf CPF do visitante.
      * @param idade Idade em anos do visitante.
@@ -92,6 +91,11 @@ public class Visitantes extends AbstratoZoologico implements VisitantesConfig {
         }
     }
 
+    /**
+     * Metodo para adicionar no arquivo os dados de um novo visitante
+     *
+     * @return True: se conseguiu cadastrar com sucesso | False: se houve excessao
+     */
     private boolean cadastrarVisitante() {
         try {
             String dia = String.valueOf(codigoVerificacao).substring(6, 8);
