@@ -12,14 +12,16 @@ import java.io.*;
 public class Funcionario extends AbstratoZoologico implements FuncionarioConfig {
 
     private String nome;
-    private CPF cpf;
+    private String cpf;
     private double salario;
+    private CPF cpfValidado;
 
     public Funcionario(String nome, String cpf, double salario) {
         try {
             this.nome = nome;
-            this.cpf = new CPF(cpf);
+            this.cpf = cpf;
             this.salario = salario;
+            cpfValidado = new CPF(this.cpf);
         } catch (CPFInvalidoException e) {
             mostraMsgAvisoTela("O CPF informado nao e valido!");
         }
@@ -33,7 +35,7 @@ public class Funcionario extends AbstratoZoologico implements FuncionarioConfig 
             StringBuilder sb = new StringBuilder();
 
             sb.append(nome + ",")
-                    .append(cpf + ",")
+                    .append(cpfValidado.getCpfNumeros() + ",")
                     .append(salario);
 
             writer.println(sb.toString());

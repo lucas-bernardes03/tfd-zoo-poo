@@ -155,7 +155,7 @@ public abstract class AbstratoFuncionamento extends AbstratoZoologico implements
             sb.append("|         2 - Deletar Animal ").append('\n');
             sb.append("|         3 - Mostrar Animais Cadastrados       ").append('\n');
             sb.append("|         4 - Exibir gastos                 ").append('\n');
-            sb.append("|         5 - Voltar                                 ").append("\n\n");
+            sb.append("|         5 - Voltar                                 ").append("\n");
             sb.append("|         6 - Sair                                 ").append("\n\n");
             sb.append("Escolha uma opçao: ");
 
@@ -193,7 +193,7 @@ public abstract class AbstratoFuncionamento extends AbstratoZoologico implements
             sb.append("|         1 - Cadastrar Funcionario           ").append('\n');
             sb.append("|         2 - Mostrar Funcionarios Cadastrados").append('\n');
             sb.append("|         3 - Exibir Folha de Pagamento       ").append('\n');
-            sb.append("|         4 - Voltar                          ").append("\n\n");
+            sb.append("|         4 - Voltar                          ").append("\n");
             sb.append("|         5 - Sair                            ").append("\n\n");
             sb.append("Escolha uma opçao: ");
 
@@ -432,6 +432,7 @@ public abstract class AbstratoFuncionamento extends AbstratoZoologico implements
 
         Funcionario f = new Funcionario(nome.getText(), cpf.getText(), Double.parseDouble(salario.getText()));
         f.cadastrarFuncionario();
+        mostraMsgInformacaoTela("Sucesso! Funcionario Cadastrado");
 
         int opcao = JOptionPane.showConfirmDialog(null, "Voltar ao menu principal?","Zoologico POO \uD83E\uDD81", OK_CANCEL_OPTION, INFORMATION_MESSAGE);
 
