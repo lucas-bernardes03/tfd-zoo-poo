@@ -153,10 +153,11 @@ public abstract class AbstratoFuncionamento extends AbstratoZoologico implements
             StringBuilder sb = new StringBuilder();
             sb.append("|         1 - Cadastrar Animal                  ").append('\n');
             sb.append("|         2 - Deletar Animal ").append('\n');
-            sb.append("|         3 - Mostrar Animais Cadastrados       ").append('\n');
-            sb.append("|         4 - Exibir gastos                 ").append('\n');
-            sb.append("|         5 - Voltar                                 ").append("\n");
-            sb.append("|         6 - Sair                                 ").append("\n\n");
+            sb.append("|         3 - Ver Dieta").append('\n');
+            sb.append("|         4 - Mostrar Animais Cadastrados       ").append('\n');
+            sb.append("|         5 - Exibir gastos                 ").append('\n');
+            sb.append("|         6 - Voltar                                 ").append("\n");
+            sb.append("|         7 - Sair                                 ").append("\n\n");
             sb.append("Escolha uma opçao: ");
 
             String lerEntrada = JOptionPane.showInputDialog(null, sb.toString(),"M E N U - Animais", QUESTION_MESSAGE);
@@ -170,16 +171,19 @@ public abstract class AbstratoFuncionamento extends AbstratoZoologico implements
                     deletarAnimal();
                     break;
                 case 3:
-                    mostrarAnimaisCadastrados();
+                    mostrarDieta();
                     break;
                 case 4:
-                    exibirGastos();
+                    mostrarAnimaisCadastrados();
                     break;
                 case 5:
+                    exibirGastos();
+                    break;
+                case 6:
                     mostraMenuInicial();
                     trataOpcaoMenuInicial();
                     break;
-                case 6:
+                case 7:
                     verificaSeFinaliza(null);
                     break;
                 default:
@@ -391,7 +395,41 @@ public abstract class AbstratoFuncionamento extends AbstratoZoologico implements
         } else {
             verificaSeFinaliza(null);
         }
+    }
 
+    private void mostrarDieta() {
+        JPanel panel = new JPanel(new BorderLayout(5, 5));
+
+        JPanel label = new JPanel(new GridLayout(0, 1, 2, 2));
+        label.add(new JLabel("Nome do Animal: ", SwingConstants.LEFT));
+        panel.add(label, BorderLayout.WEST);
+
+        JPanel controls = new JPanel(new GridLayout(0, 1, 2, 2));
+        JTextField nome = new JTextField();
+        controls.add(nome);
+        panel.add(controls, BorderLayout.CENTER);
+        JOptionPane.showMessageDialog(label, panel, "Ver Dieta do Animal", JOptionPane.QUESTION_MESSAGE);
+
+        Animal a = new Animal();
+        String dieta = a.verDieta(nome.getText());
+
+        String[] campos = dieta.split(",");
+        StringBuilder sb = new StringBuilder();
+
+        sb.append("Nome do Animal: ").append(campos[0] + '\n');
+        sb.append("Horário: ").append(campos[1] + '\n');
+        sb.append("Alimento: ").append(campos[2] + '\n');
+
+        int op = JOptionPane.showConfirmDialog(null,sb.toString(),"Zoologico POO \uD83E\uDD81", OK_CANCEL_OPTION, INFORMATION_MESSAGE);
+
+        int opcao = JOptionPane.showConfirmDialog(null, "Voltar ao menu principal?","Zoologico POO \uD83E\uDD81", OK_CANCEL_OPTION, INFORMATION_MESSAGE);
+
+        if (opcao == OK_OPTION) {
+            mostraMenuInicial();
+            trataOpcaoMenuInicial();
+        } else {
+            verificaSeFinaliza(null);
+        }
     }
 
     private void exibirGastos() {

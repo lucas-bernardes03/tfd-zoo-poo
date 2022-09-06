@@ -154,6 +154,26 @@ public class Animal extends AbstratoZoologico {
         }
     }
 
+    public String verDieta(String nome) {
+        try {
+            FileReader pathAlimentos =  new FileReader("src/main/java/com/poo/arquivos/alimentos.csv");
+            BufferedReader bf = new BufferedReader(pathAlimentos);
+
+            String linha = bf.readLine();
+            while (linha != null) {
+                if(linha.contains(nome)) return linha;
+                linha = bf.readLine();
+            }
+
+            bf.close();
+            return null;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     public String toString() {
         StringBuilder sb = new StringBuilder();
 
