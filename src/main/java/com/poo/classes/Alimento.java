@@ -3,6 +3,8 @@ package com.poo.classes;
 import com.poo.exceptions.HorarioInvalidoException;
 import lombok.*;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.util.regex.Pattern;
 
 @Getter @Setter
@@ -28,10 +30,10 @@ public class Alimento {
         String horaFormatada = String.valueOf(hora);
         String minutoFormatado = String.valueOf(minuto);
 
-        if (!Pattern.compile(pattern).matcher(horaFormatada).matches() || !Pattern.compile(pattern).matcher(minutoFormatado).matches())
-            throw new HorarioInvalidoException();
         if (hora <= 9) horaFormatada = "0" + hora;
         if (minuto <= 9) minutoFormatado = "0" + minuto;
+        if (!Pattern.compile(pattern).matcher(horaFormatada).matches() || !Pattern.compile(pattern).matcher(minutoFormatado).matches())
+            throw new HorarioInvalidoException();
 
         return horaFormatada + ":" + minutoFormatado;
     }

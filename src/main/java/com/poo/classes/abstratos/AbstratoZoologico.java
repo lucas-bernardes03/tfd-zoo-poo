@@ -62,7 +62,7 @@ public abstract class AbstratoZoologico {
                     continue;
                 }
 
-                linhasTotais += "| " + numeroLinha + "," + linha + " |\n";
+                linhasTotais += "| " + numeroLinha + ", " + linha + " |\n";
                 numeroLinha++;
                 linha = bf.readLine();
             }
