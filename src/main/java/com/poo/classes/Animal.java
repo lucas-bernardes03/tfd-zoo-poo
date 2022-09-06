@@ -33,6 +33,9 @@ public class Animal extends AbstratoZoologico {
         this.idade = idade;
     }
 
+    /**
+     * Metodo para realizar o cadastro do Aninal no seu arquivo.
+     */
     public void cadastrarAnimal(){
         File myFile = new File("src/main/java/com/poo/arquivos/animais.csv");
         PrintWriter writer;
@@ -54,6 +57,13 @@ public class Animal extends AbstratoZoologico {
         }
     }
 
+    /**
+     * Metodo para adicionar um alimento no seu arquivo.
+     *
+     * @param hora Hora da alimentaçao
+     * @param minuto Minuto da alimentaçao
+     * @param alimento Objeto Alimento
+     */
     public void adicionarAlimentacao(int hora, int minuto, Alimento alimento) {
         File myFile = new File("src/main/java/com/poo/arquivos/alimentos.csv");
         PrintWriter writer;
@@ -82,6 +92,11 @@ public class Animal extends AbstratoZoologico {
         }
     }
 
+    /**
+     * Metodo para calcular os gastos com o alimento.
+     *
+     * @return O gasto
+     */
     public double gastosTotais(){
         try {
             double gastosTotal = 0;

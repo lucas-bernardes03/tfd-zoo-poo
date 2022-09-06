@@ -22,16 +22,6 @@ public class Dia extends AbstratoZoologico implements DiaConfig {
     }
 
     @Override
-    public double calculaRenda() {
-        double rendaTotal = 0;
-        for (Visitantes visitante : visitantes) {
-            rendaTotal += visitante.valorIngresso();
-        }
-
-        return rendaTotal;
-    }
-
-    @Override
     public void mostrarVisitantes() {
         try {
             FileReader pathVisitantes =  new FileReader("src/main/java/com/poo/arquivos/visitantes.csv");
@@ -52,7 +42,6 @@ public class Dia extends AbstratoZoologico implements DiaConfig {
             sb.append("Dia: " + dia + " - " + "Mes: " + mes + '\n');
             sb.append("Total de visitantes: " + totalVisitantes + '\n');
             sb.append("Total renda diaria: " +  rendaDiaria + '\n');
-            // imprimir infos sb
 
             bf.close();
         } catch (Exception e) {
@@ -61,10 +50,17 @@ public class Dia extends AbstratoZoologico implements DiaConfig {
         }
     }
 
+    /**
+     * Metodo para verificar se esta no dia e mes correto para somar os visitantes e a renda diaria.
+     *
+     * @param camposLinha Vetor da linha lida
+     * @param diaProcurado Dia para verificar nos arquivos
+     * @param mesProcurado Mes para verificar nos arquivos
+     */
     private void obtemInfos(String[] camposLinha, int diaProcurado, int mesProcurado) {
         String id = camposLinha[0];
-        String dia = id.substring(6, 7);
-        String mes = id.substring(4, 5);
+        String dia = id.substring(6, 8);
+        String mes = id.substring(4, 6);
 
         if (dia.equals(String.valueOf(diaProcurado))) {
             if (mes.equals(String.valueOf(mesProcurado))) {

@@ -1,6 +1,8 @@
 package com.poo.interfaces;
 
 public interface DiaConfig {
-    double calculaRenda();
+    /**
+     * Metodo para mostrar os visitantes de um determinado dia.
+     */
     void mostrarVisitantes();
 }
