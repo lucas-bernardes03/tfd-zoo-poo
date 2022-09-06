@@ -2,6 +2,7 @@ package com.poo.classes.abstratos;
 
 import com.poo.classes.Alimento;
 import com.poo.classes.Animal;
+import com.poo.classes.Funcionario;
 import com.poo.classes.Visitantes;
 import com.poo.enums.OpcaoInicialEnum;
 import com.poo.interfaces.FuncionamentoConfig;
@@ -117,7 +118,7 @@ public abstract class AbstratoFuncionamento extends AbstratoZoologico implements
             StringBuilder sb = new StringBuilder();
             sb.append("|         1 - Cadastrar Visitante                  ").append('\n');
             sb.append("|         2 - Mostrar Visitantes Cadastrados       ").append('\n');
-            sb.append("|         3 - Exibir receita total                 ").append('\n');
+            sb.append("|         3 - Exibir Receita Total                 ").append('\n');
             sb.append("|         4 - Sair                                 ").append("\n\n");
             sb.append("Escolha uma opçao: ");
 
@@ -151,7 +152,7 @@ public abstract class AbstratoFuncionamento extends AbstratoZoologico implements
             sb.append("|         4 - Sair                                 ").append("\n\n");
             sb.append("Escolha uma opçao: ");
 
-            String lerEntrada = JOptionPane.showInputDialog(null, sb.toString(),"M E N U - Visitantes", QUESTION_MESSAGE);
+            String lerEntrada = JOptionPane.showInputDialog(null, sb.toString(),"M E N U - Animais", QUESTION_MESSAGE);
             int opcao = Integer.parseInt(lerEntrada);
 
             switch (opcao) {
@@ -170,27 +171,93 @@ public abstract class AbstratoFuncionamento extends AbstratoZoologico implements
                 default:
                     mostraMsgErroTela("OPCAO INVALIDA!");
             }
-
-            //            cadastroNovoAnimal() se cadastrou pode escolher add alimentaçao ou nao
-            //            mostrarAnimaisCadastrados()
-            //          exibirGastos()
         }
 
         if (opcaoInicialEnum == OpcaoInicialEnum.FUNCIONARIO) {
             mostraMsgInformacaoTela("Iniciando funçoes para seçao de Funcionarios!");
-//            cadastroNovoFuncionario()
-//            mostrarFuncionariosCadastrados()
-//            exibirFolhaPagamento()
+            StringBuilder sb = new StringBuilder();
+            sb.append("|         1 - Cadastrar Funcionario           ").append('\n');
+            sb.append("|         2 - Mostrar Funcionarios Cadastrados").append('\n');
+            sb.append("|         3 - Exibir Folha de Pagamento       ").append('\n');
+            sb.append("|         4 - Sair                            ").append("\n\n");
+            sb.append("Escolha uma opçao: ");
+
+            String lerEntrada = JOptionPane.showInputDialog(null, sb.toString(),"M E N U - Funcionarios", QUESTION_MESSAGE);
+            int opcao = Integer.parseInt(lerEntrada);
+
+            switch (opcao) {
+                case 1:
+                    cadastroNovoFuncionario();
+                    break;
+                case 2:
+                    mostrarFuncionariosCadastrados();
+                    break;
+                case 3:
+                    exibirFolhaPagamento();
+                    break;
+                case 4:
+                    verificaSeFinaliza(null);
+                    break;
+                default:
+                    mostraMsgErroTela("OPCAO INVALIDA!");
+            }
         }
     }
 
 
+    // --------------------------------------- Metodos para OPCAO 1 - Visitantes ---------------------------------------
 
-    private void exibirGastos() {
-        Animal a = new Animal();
-        double gastos = a.gastosTotais();
+    private void cadastroNovoVisitante() {
+        JPanel panel = new JPanel(new BorderLayout(5, 5));
+
+        JPanel label = new JPanel(new GridLayout(0, 1, 2, 2));
+        label.add(new JLabel("Codigo Verificaçao: ", SwingConstants.LEFT));
+        label.add(new JLabel("CPF: ", SwingConstants.LEFT));
+        label.add(new JLabel("Idade: ", SwingConstants.LEFT));
+        panel.add(label, BorderLayout.WEST);
+
+        JPanel controls = new JPanel(new GridLayout(0, 1, 2, 2));
+        JTextField codigo = new JTextField();
+        controls.add(codigo);
+        JTextField cpf = new JTextField();
+        controls.add(cpf);
+        JTextField idade = new JTextField();
+        controls.add(idade);
+        panel.add(controls, BorderLayout.CENTER);
+        JOptionPane.showMessageDialog(label, panel, "Cadastro Visitante", JOptionPane.QUESTION_MESSAGE);
+
+        Visitantes v = new Visitantes(Long.parseLong(codigo.getText()), cpf.getText(), Integer.parseInt(idade.getText()));
+        v.realizaCadastroVisitante();
+
+        int opcao = JOptionPane.showConfirmDialog(null, "Voltar ao menu principal?","Zoologico POO \uD83E\uDD81", OK_CANCEL_OPTION, INFORMATION_MESSAGE);
+
+        if (opcao == OK_OPTION) {
+            mostraMenuInicial();
+            trataOpcaoMenuInicial();
+        } else {
+            verificaSeFinaliza(null);
+        }
+    }
+
+    private void mostrarVisitantesCadastrados() {
+        String visitantes = leArquivo("dia,mes,codigo,cpf,idade,valor", "visitantes.csv");
+        String cabecalho = "| #, Dia, Mes, Codigo, CPF, Idade, Valor |\n";
+
+        int opcao = JOptionPane.showConfirmDialog(null, cabecalho+visitantes,"Zoologico POO \uD83E\uDD81", OK_CANCEL_OPTION, INFORMATION_MESSAGE);
+        if (opcao == OK_OPTION) {
+            mostraMenuInicial();
+            trataOpcaoMenuInicial();
+        } else {
+            verificaSeFinaliza(null);
+        }
+    }
+
+    private void exibirReceitaVisitantes() {
+        Visitantes v = new Visitantes();
+        double receita = v.getReceitaVisitantes();
         DecimalFormat df = new DecimalFormat("#.00");
-        String msg = "Os gastos gerados pelos ANIMAIS foi de: " + df.format(gastos);
+        String msg = "A receita gerada pelos VISITANTES foi de: " + df.format(receita);
+
         int opcao = JOptionPane.showConfirmDialog(null, msg,"Zoologico POO \uD83E\uDD81", OK_CANCEL_OPTION, INFORMATION_MESSAGE);
         if (opcao == OK_OPTION) {
             mostraMenuInicial();
@@ -200,18 +267,8 @@ public abstract class AbstratoFuncionamento extends AbstratoZoologico implements
         }
     }
 
-    private void mostrarAnimaisCadastrados() {
-        String animais = leArquivo("nome,especie,peso,idade", "animais.csv");
-        String cabecalho = "| #, Nome, Especie, Peso, Idade |\n";
 
-        int opcao = JOptionPane.showConfirmDialog(null, cabecalho+animais,"Zoologico POO \uD83E\uDD81", OK_CANCEL_OPTION, INFORMATION_MESSAGE);
-        if (opcao == OK_OPTION) {
-            mostraMenuInicial();
-            trataOpcaoMenuInicial();
-        } else {
-            verificaSeFinaliza(null);
-        }
-    }
+    // ----------------------------------------- Metodos para OPCAO 2 - Animais ----------------------------------------
 
     private void cadastroNovoAnimal() {
         JPanel panel = new JPanel(new BorderLayout(5, 5));
@@ -269,53 +326,7 @@ public abstract class AbstratoFuncionamento extends AbstratoZoologico implements
         a.adicionarAlimentacao(Integer.parseInt(horas.getText()), Integer.parseInt(minutos.getText()), alimento);
 
         int opcao = JOptionPane.showConfirmDialog(null, "Voltar ao menu principal?","Zoologico POO \uD83E\uDD81", OK_CANCEL_OPTION, INFORMATION_MESSAGE);
-        
-        if (opcao == OK_OPTION) {
-            mostraMenuInicial();
-            trataOpcaoMenuInicial();
-        } 
-        else {
-            verificaSeFinaliza(null);
-        }
-    }
 
-    private void cadastroNovoVisitante() {
-        JPanel panel = new JPanel(new BorderLayout(5, 5));
-
-        JPanel label = new JPanel(new GridLayout(0, 1, 2, 2));
-        label.add(new JLabel("Codigo Verificaçao: ", SwingConstants.LEFT));
-        label.add(new JLabel("CPF: ", SwingConstants.LEFT));
-        label.add(new JLabel("Idade: ", SwingConstants.LEFT));
-        panel.add(label, BorderLayout.WEST);
-
-        JPanel controls = new JPanel(new GridLayout(0, 1, 2, 2));
-        JTextField codigo = new JTextField();
-        controls.add(codigo);
-        JTextField cpf = new JTextField();
-        controls.add(cpf);
-        JTextField idade = new JTextField();
-        controls.add(idade);
-        panel.add(controls, BorderLayout.CENTER);
-        JOptionPane.showMessageDialog(label, panel, "Cadastro Visitante", JOptionPane.QUESTION_MESSAGE);
-
-        Visitantes v = new Visitantes(Long.parseLong(codigo.getText()), cpf.getText(), Integer.parseInt(idade.getText()));
-        v.realizaCadastroVisitante();
-        
-        int opcao = JOptionPane.showConfirmDialog(null, "Voltar ao menu principal?","Zoologico POO \uD83E\uDD81", OK_CANCEL_OPTION, INFORMATION_MESSAGE);
-        
-        if (opcao == OK_OPTION) {
-            mostraMenuInicial();
-            trataOpcaoMenuInicial();
-        } 
-        else {
-            verificaSeFinaliza(null);
-        }
-    }
-
-    private void mostrarVisitantesCadastrados() {
-        String visitantes = leArquivo("dia,mes,codigo,cpf,idade,valor", "visitantes.csv");
-        String cabecalho = "| #, Dia, Mes, Codigo, CPF, Idade, Valor |\n";
-        int opcao = JOptionPane.showConfirmDialog(null, cabecalho+visitantes,"Zoologico POO \uD83E\uDD81", OK_CANCEL_OPTION, INFORMATION_MESSAGE);
         if (opcao == OK_OPTION) {
             mostraMenuInicial();
             trataOpcaoMenuInicial();
@@ -324,11 +335,88 @@ public abstract class AbstratoFuncionamento extends AbstratoZoologico implements
         }
     }
 
-    private void exibirReceitaVisitantes() {
-        Visitantes v = new Visitantes();
-        double receita = v.getReceitaVisitantes();
+    private void mostrarAnimaisCadastrados() {
+        String animais = leArquivo("nome,especie,peso,idade", "animais.csv");
+        String cabecalho = "| #, Nome, Especie, Peso, Idade |\n";
+
+        int opcao = JOptionPane.showConfirmDialog(null, cabecalho+animais,"Zoologico POO \uD83E\uDD81", OK_CANCEL_OPTION, INFORMATION_MESSAGE);
+        if (opcao == OK_OPTION) {
+            mostraMenuInicial();
+            trataOpcaoMenuInicial();
+        } else {
+            verificaSeFinaliza(null);
+        }
+    }
+
+    private void exibirGastos() {
+        Animal a = new Animal();
+        double gastos = a.gastosTotais();
         DecimalFormat df = new DecimalFormat("#.00");
-        String msg = "A receita gerada pelos VISITANTES foi de: " + df.format(receita);
+        String msg = "Os gastos gerados pelos ANIMAIS foi de: " + df.format(gastos);
+
+        int opcao = JOptionPane.showConfirmDialog(null, msg,"Zoologico POO \uD83E\uDD81", OK_CANCEL_OPTION, INFORMATION_MESSAGE);
+        if (opcao == OK_OPTION) {
+            mostraMenuInicial();
+            trataOpcaoMenuInicial();
+        } else {
+            verificaSeFinaliza(null);
+        }
+    }
+
+    // -------------------------------------- Metodos para OPCAO 3 - Funcionarios --------------------------------------
+
+    private void cadastroNovoFuncionario() {
+        JPanel panel = new JPanel(new BorderLayout(5, 5));
+
+        JPanel label = new JPanel(new GridLayout(0, 1, 2, 2));
+        label.add(new JLabel("Nome: ", SwingConstants.LEFT));
+        label.add(new JLabel("CPF: ", SwingConstants.LEFT));
+        label.add(new JLabel("Salario: ", SwingConstants.LEFT));
+        panel.add(label, BorderLayout.WEST);
+
+        JPanel controls = new JPanel(new GridLayout(0, 1, 2, 2));
+        JTextField nome = new JTextField();
+        controls.add(nome);
+        JTextField cpf = new JTextField();
+        controls.add(cpf);
+        JTextField salario = new JTextField();
+        controls.add(salario);
+        panel.add(controls, BorderLayout.CENTER);
+        JOptionPane.showMessageDialog(label, panel, "Cadastro Funcionario", JOptionPane.QUESTION_MESSAGE);
+
+        Funcionario f = new Funcionario(nome.getText(), cpf.getText(), Double.parseDouble(salario.getText()));
+        f.cadastrarFuncionario();
+
+        int opcao = JOptionPane.showConfirmDialog(null, "Voltar ao menu principal?","Zoologico POO \uD83E\uDD81", OK_CANCEL_OPTION, INFORMATION_MESSAGE);
+
+        if (opcao == OK_OPTION) {
+            mostraMenuInicial();
+            trataOpcaoMenuInicial();
+        }
+        else {
+            verificaSeFinaliza(null);
+        }
+    }
+
+    private void mostrarFuncionariosCadastrados() {
+        String funcionarios = leArquivo("nome,cpf,salario", "funcionarios.csv");
+        String cabecalho = "| #, Nome, CPF, Salario |\n";
+
+        int opcao = JOptionPane.showConfirmDialog(null, cabecalho+funcionarios,"Zoologico POO \uD83E\uDD81", OK_CANCEL_OPTION, INFORMATION_MESSAGE);
+        if (opcao == OK_OPTION) {
+            mostraMenuInicial();
+            trataOpcaoMenuInicial();
+        } else {
+            verificaSeFinaliza(null);
+        }
+    }
+
+    private void exibirFolhaPagamento() {
+        Funcionario f = new Funcionario();
+        double folha = f.folhaPagamentoTotal();
+        DecimalFormat df = new DecimalFormat("#.00");
+        String msg = "A folha de pagamento dos FUNCIONARIOS e de: " + df.format(folha);
+
         int opcao = JOptionPane.showConfirmDialog(null, msg,"Zoologico POO \uD83E\uDD81", OK_CANCEL_OPTION, INFORMATION_MESSAGE);
         if (opcao == OK_OPTION) {
             mostraMenuInicial();
@@ -340,6 +428,6 @@ public abstract class AbstratoFuncionamento extends AbstratoZoologico implements
 
     @Override
     public void finalizaPrograma() {
-
+        verificaSeFinaliza(null);
     }
 }
